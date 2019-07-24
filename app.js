@@ -16,11 +16,7 @@ app.get('/books', (req, res) => {
             return res.status(400).send('Sort must be one of title or rank')
         }
     }
-    if (sort){
-        results.sort((a,b) => {
-            return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0;
-        })
-    }
+
     let results = books
         .filter(book => 
             book   
@@ -28,6 +24,11 @@ app.get('/books', (req, res) => {
                 .toLowerCase()
                 .includes(search.toLowerCase())
                 )
+    if (sort){
+        results.sort((a,b) => {
+            return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0;
+        })
+    }
     res.json(results)
 })
 
